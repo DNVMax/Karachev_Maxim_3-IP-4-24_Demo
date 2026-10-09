@@ -12,9 +12,9 @@ CURRENT_EDIT = None
 ENTRY_LOGIN = None
 
 # Константы оформления
-BG = "#f9f1e5"
-FIELD_BG = "#ffffff"
-FIELD_FG = "#22262b"
+BG = "LightSteelBlue4"
+FIELD_BG = "LightSkyBlue3"
+FIELD_FG = "White"
 FONT_TITLE = ("Arial", 16, "bold")
 FONT_LABEL = ("Arial", 11, "bold")
 FONT_BUTTON = ("Arial", 12, "bold")
