@@ -15,14 +15,27 @@ ENTRY_LOGIN = None
 BG = "LightSteelBlue4"
 FIELD_BG = "LightSkyBlue3"
 FIELD_FG = "White"
-FONT_TITLE = ("Arial", 16, "bold")
-FONT_LABEL = ("Arial", 11, "bold")
-FONT_BUTTON = ("Arial", 12, "bold")
+FONT_TITLE = ("Courier", 20, "bold")
+FONT_TITLE_ITALIC_BOLD = ("Courier", 20, "bold", "italic") # Заголовок экрана входа (полужирный курсив)
+FONT_LABEL = ("Courier", 8, "bold")
+FONT_CAPTCHA_HINT = ("Courier", 8, "italic")               # Пояснение над капчей (курсив)
+FONT_BUTTON = ("Courier", 12, "bold")
+
+# Размеры окна
+WINDOW_WIDTH = 720
+WINDOW_HEIGHT = 640
+
+def center_window(window, width, height):
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    x = max(0, (screen_width - width) // 2)
+    y = max(0, (screen_height - height) // 2)
+    window.geometry(f"{width}x{height}+{x}+{y}")
 
 # Создание главного окна
 root = tk.Tk()
 root.title("Учебное приложение")
-root.geometry("720x640")
+center_window(root, WINDOW_WIDTH, WINDOW_HEIGHT)
 root.configure(bg=BG)
 
 container = tk.Frame(root, bg=BG)
@@ -89,8 +102,9 @@ def build_captcha(host):
     while captcha_shuffled == CORRECT_ORDER:
         random.shuffle(captcha_shuffled)
     
+    # Пояснительная надпись оформлена курсивом
     tk.Label(host, text="Соберите картинку: кликайте фрагменты по порядку",
-             bg=BG, fg=FIELD_FG, font=FONT_LABEL, anchor="w").pack(fill="x")
+             bg=BG, fg=FIELD_FG, font=FONT_CAPTCHA_HINT, anchor="w").pack(fill="x")
     
     board = tk.Frame(host, bg=BG)
     board.pack(pady=(6, 6))
@@ -201,7 +215,8 @@ def toggle_password_visibility(entry_pass, var):
 def open_login():
     global ENTRY_LOGIN, captcha_host
     clear_screen()
-    make_title("Вход в систему").pack(pady=(0, 10))
+    # Заголовок экрана входа оформлен полужирным курсивом
+    tk.Label(container, text="Вход в систему", bg=BG, fg=FIELD_FG, font=FONT_TITLE_ITALIC_BOLD).pack(pady=(0, 10))
     
     make_label("Логин").pack(fill="x")
     ENTRY_LOGIN = make_entry()
